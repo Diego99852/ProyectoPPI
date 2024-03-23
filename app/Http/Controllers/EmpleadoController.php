@@ -11,14 +11,20 @@ class EmpleadoController extends Controller
     {
         return view('Crear_empleado');
     }
+    //empieza cambio//
+    public function mostrarFormularioInicioSesion()
+    {
+        return view('inicio_sesion');
+    }
 
+    //Termina cambio//
     public function store(Request $request)
     {
         $request->validate([
             'apellido1' => ['required', 'min:2', 'max:50'],
             'apellido2' => ['required', 'min:2', 'max:50'],
-            'nombrepila' =>['required', 'min:2', 'max:50'],
-            'sueldo' => ['required', 'numeric'],
+            'nombrepila'=> ['required', 'min:2', 'max:50'],
+            'sueldo'    => ['required', 'numeric'],
         ]);
 
         Empleado::create($request->all());
