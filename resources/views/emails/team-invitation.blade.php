@@ -21,3 +21,4 @@
 
 {{ __('If you did not expect to receive an invitation to this team, you may discard this email.') }}
 @endcomponent
+<h1>este correo lo hice yo :D<h1>

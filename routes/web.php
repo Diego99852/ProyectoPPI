@@ -1,7 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\contactomailable;
 use App\Http\Controllers\EmpleadoController;
+use App\Http\Controllers\PanController;
+use App\Http\Controllers\VentaController;
+use App\Http\Controllers\MailController;
 
 
 /*
@@ -16,16 +21,13 @@ use App\Http\Controllers\EmpleadoController;
 */
 
 
+Route::middleware(['auth'])->group(function() {
+    Route::get('/perfil', 'PerfilController@index');
+    Route::get('/configuracion', 'ConfiguracionController@index');
 
+});
 
-/*Route::get('/', function () {
-    return view('inicio_sesion');
-})->name('inicio_sesion');*/
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
+Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])->group(function () {
 
     Route::get('/', function () {
         return view('inicio_sesion');
@@ -60,6 +62,15 @@ Route::middleware([
     
     Route::post('/inicio-sesion', [EmpleadoController::class, 'iniciarSesion'])->name('login.empleado');
     
+    Route::Resource('Pan',PanController::class);
+
+    Route::Resource('Venta',VentaController::class)->parameters([
+        'Venta' => 'Venta'
+    ]);
+    
+    Route::get('/contactanos/index', [MailController::class, 'index'])->name('contactanos.index');
+    Route::post('/contactanos/store', [MailController::class, 'store'])->name('contactanos.store');
+
 });
 
 

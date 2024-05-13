@@ -26,7 +26,7 @@
                     <a class="nav-link" href="#">Acerca de</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Servicios</a>
+                    <a class="nav-link" href="/contactanos/index">contactanos</a>
                 </li>
             </ul>
         </div>
@@ -51,14 +51,26 @@
                             <h5 class="card-title">Agregar Nuevo Empleado</h5>
                             <p class="card-text"></p>
                             <a href="/empleados/crear" class="btn btn-secondary">Ir</a>
+                            <h5 class="card-title">Pan</h5>
+                            <p class="card-text"></p>
+                            <a href="/Pan" class="btn btn-secondary">Ir</a>
+                            <h5 class="card-title">Ventas</h5>
+                            <p class="card-text"></p>
+                            <a href="/Venta" class="btn btn-secondary">Ir</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 py-3">
-                    <div class="card">
-                        <img src="http://localhost:8000/images/pan.jpg" class="card-img-top" alt="...">
-                    </div>
+            <div class="col-lg-4 py-3">
+                <div >
+                    <img src="http://localhost:8000/images/pan.jpg" class="card-img-top mt-2" alt="...">
+                        <div id="boton vender" class="container d-flex flex-column align-items-center justify-content-end my-2">
+                            <h5 class="card-title">Vender</h5>
+                            <p class="card-text"></p>
+                            <a href="/Venta/create" class="btn btn-primary btn-block">Ir</a>
+                        </div>
                 </div>
+            </div>
+                
                 <div class="col-lg-4 py-3">
                     <div class="card">
                         <div class="card-body">
@@ -72,6 +84,7 @@
             </div>
         </div>
     </div>
+    <div style="margin-bottom: 100px;"></div>
     <!-- Pie de página -->
     <footer class="footer fixed-bottom bg-dark text-light text-center py-4">
         <div class="container">

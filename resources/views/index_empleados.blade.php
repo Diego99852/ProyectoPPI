@@ -21,7 +21,7 @@
                 <a class="nav-link" href="#">Acerca de</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Servicios</a>
+                <a class="nav-link" href="/contactanos.index">contactanos</a>
             </li>
         </ul>
     </div>
@@ -40,6 +40,7 @@
         <thead class="thead-dark">
             <tr>
                 <th>ID</th>
+                <th>avatar</th>
                 <th>Apellido 1</th>
                 <th>Apellido 2</th>
                 <th>Nombre</th>
@@ -51,6 +52,7 @@
             @foreach($empleados as $empleado)
             <tr>
                 <td>{{ $empleado->id }}</td>
+                <td><img src="{{ asset(Storage::url($empleado->avatar)) }}" width="100" style="margin-left: 45px;"></td>
                 <td>{{ $empleado->apellido1 }}</td>
                 <td>{{ $empleado->apellido2 }}</td>
                 <td>{{ $empleado->nombrepila }}</td>
@@ -68,7 +70,7 @@
         </tbody>
     </table>
 </div>
-
+<div style="margin-bottom: 100px;"></div>
 <footer class="footer fixed-bottom bg-dark text-light text-center py-4">
     <div class="container">
         <span class="text-muted">© 2024 panaderia el bueno</span>

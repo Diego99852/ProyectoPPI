@@ -11,10 +11,27 @@
 
 <div class="container">
     <h1 class="mt-5">Editar Empleado</h1>
-
-    <form method="POST" action="{{ route('empleados.update', $empleado) }}" class="mt-4 needs-validation" novalidate>
+    @if ($errors->any())
+        <div class="container mt-4">
+            <div class="alert alert-danger">
+                <ul class="mb-0">
+                    @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>   
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+        @endif
+    <form method="POST" action="{{ route('empleados.update', $empleado) }}" class="mt-4 needs-validation" novalidate  enctype="multipart/form-data" >
 
         @csrf 
+
+        <div class="form-group">
+            <label for="avatar">avatar:</label>
+            <img src="{{ asset(Storage::url($empleado->avatar)) }}" width="200" style="margin-left: 90px;">
+            <input type="file" class="form-control" id="avatar" name="avatar" required >
+            <div class="invalid-feedback">Por favor, ingresa un avatar.</div>
+        </div>
 
         <div class="form-group">
             <label for="apellido1">Apellido 1:</label>
@@ -45,7 +62,7 @@
     </form>
         
 </div>
-
+<div style="margin-bottom: 100px;"></div>
 <footer class="footer fixed-bottom bg-dark text-light text-center py-4">
     <div class="container">
         <span class="text-muted">© 2024 panaderia el bueno</span>

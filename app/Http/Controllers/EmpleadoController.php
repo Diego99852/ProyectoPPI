@@ -4,20 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Empleado;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class EmpleadoController extends Controller
 {
+    use softdeletes;
+
     public function create()
     {
         return view('Crear_empleado');
     }
-    //empieza cambio//
     public function mostrarFormularioInicioSesion()
     {
         return view('inicio_sesion');
     }
-
-    //Termina cambio//
     public function store(Request $request)
     {
         $request->validate([
@@ -26,9 +27,12 @@ class EmpleadoController extends Controller
             'nombrepila'=> ['required', 'min:2', 'max:50'],
             'sueldo'    => ['required', 'numeric'],
         ]);
+    
+        $avatar = $request->has('avatar') ? $request->file('avatar')->store('avatars', 'public') : 'default.png';
 
-        Empleado::create($request->all());
-        return view('inicio_empleados');
+        Empleado::create(array_merge($request->all(), ['avatar' => $avatar]));
+
+        return view('inicio_sesion');
     }
     
     public function index()
@@ -43,18 +47,42 @@ class EmpleadoController extends Controller
     }
 
 
-    public function update(Request $request, Empleado $empleado)
+    /*public function update(Request $request, Empleado $empleado)
     {
         $validated = $request->validate([
-
             'apellido1' => ['required', 'min:2', 'max:50'],
             'apellido2' => ['required', 'min:2', 'max:50'],
             'nombrepila' =>['required', 'min:2', 'max:50'],
             'sueldo' => ['required', 'numeric'],
         ]);
-        Empleado::where('id', $empleado->id)->update($request->except('_token', '_method'));
+        $empleado->avatar = $request->file('avatar')->store('public/avatars');
+        Empleado::where('id', $empleado->id)->update($request->except('_token', '_method','avatar'));
         return view('inicio_empleados');
+        
+    }*/
+    public function update(Request $request, Empleado $empleado)
+    {
+        $validated = $request->validate([
+            'apellido1' => ['required', 'min:2', 'max:50'],
+            'apellido2' => ['required', 'min:2', 'max:50'],
+            'nombrepila' =>['required', 'min:2', 'max:50'],
+            'sueldo' => ['required', 'numeric'],
+            'avatar' => ['image', 'max:2048'], 
+        ]);
+        if ($request->hasFile('avatar')) {
+
+            $avatarPath = $request->file('avatar')->store('public');
+
+            $empleado->avatar = $avatarPath;
+        }
+
+        $empleado->update($request->except('_token', '_method', 'avatar'));
+
+        return view('inicio_sesion');
     }
+
+
+
     public function delete($id)
     {
         $empleado_id = Empleado::find($id);
@@ -73,5 +101,5 @@ class EmpleadoController extends Controller
 
     }
 
-    
 }
+
